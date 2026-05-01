@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jerome Baker Designs — NY Drop 1 Flower & Pre-Roll Lineup</title>
-<meta name="description" content="The flower and pre-roll lineup pairing the Jerome Baker Designs NY 2026 Drop 1. Premium genetics from Barney's Farm, Greenhouse, 7ACRES, Exotic Genetix, Humboldt Seed Co., Blockhead, and Cannarado.">
-<meta property="og:title" content="JBD NY Drop 1 — Flower & Pre-Roll Lineup">
-<meta property="og:description" content="Glass since 1991. Flower for the drop. Seven strains, three categories, one collection.">
+<title>JBD · NY Drop 1 / Series 1 — Flower & Pre-Roll Lineup</title>
+<meta name="description" content="Series 1 of the Jerome Baker Designs NY 2026 Drop 1: the flower and pre-roll lineup. Premium genetics from Barney's Farm, Greenhouse, 7ACRES, Exotic Genetix, Humboldt Seed Co., Blockhead, and Cannarado.">
+<meta property="og:title" content="JBD · NY Drop 1 / Series 1">
+<meta property="og:description" content="Glass since 1991. Flower for the drop. Seven strains, three categories — Series 1 of NY 2026 Drop 1.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="cannacrypted.com">
+<link rel="canonical" href="https://drop1.cannacrypted.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -136,21 +138,46 @@
   .card:hover { transform: translateY(-4px); border-color: var(--gold); }
   .card-art {
     position: relative;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     background-position: center; background-size: cover;
+    background-color: #1a1a1a;
   }
   .card-art::after {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 30%, var(--bg-2) 100%);
+    background: linear-gradient(180deg, transparent 50%, rgba(20,20,20,0.85) 100%);
+    pointer-events: none;
   }
-  .card-art.sativa { background-image: url('https://litter.catbox.moe/9o2w0r.jpg'); }
-  .card-art.indica { background-image: url('https://litter.catbox.moe/upag6m.jpg'); }
-  .card-art.hybrid { background-image: url('https://litter.catbox.moe/150tor.jpg'); }
-  .card-art.indica-hybrid {
-    background-image: linear-gradient(135deg, rgba(44,76,232,0.4), rgba(217,70,168,0.4)), url('https://litter.catbox.moe/upag6m.jpg');
-    background-size: cover, cover;
+  .card-art::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+    z-index: 3;
   }
+  .card-art.sativa::before { background: var(--sativa); }
+  .card-art.indica::before { background: var(--indica); }
+  .card-art.hybrid::before { background: var(--hybrid); }
+  .card-art.indica-hybrid::before { background: linear-gradient(90deg, var(--indica), var(--hybrid)); }
+  .card-art .pattern-chip {
+    position: absolute; bottom: 12px; right: 12px; z-index: 2;
+    width: 44px; height: 44px; border-radius: 50%;
+    background-position: center; background-size: cover;
+    border: 2px solid rgba(245,240,230,0.85);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+  .pattern-chip.sativa { background-image: url('https://litter.catbox.moe/9o2w0r.jpg'); }
+  .pattern-chip.indica { background-image: url('https://litter.catbox.moe/upag6m.jpg'); }
+  .pattern-chip.hybrid { background-image: url('https://litter.catbox.moe/150tor.jpg'); }
+  .pattern-chip.indica-hybrid {
+    background-image: linear-gradient(135deg, rgba(44,76,232,0.35), rgba(217,70,168,0.35)), url('https://litter.catbox.moe/upag6m.jpg');
+  }
+  .img-credit {
+    position: absolute; bottom: 8px; left: 12px; z-index: 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: rgba(245,240,230,0.6);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  }
+  .img-credit a { color: rgba(245,240,230,0.7); border: none; }
+  .img-credit a:hover { color: var(--gold); }
   .badge {
     position: absolute; top: 16px; left: 16px; z-index: 2;
     font-family: 'JetBrains Mono', monospace;
@@ -311,7 +338,7 @@
 
 <nav>
   <div class="nav-inner">
-    <div class="brand">JEROME BAKER <span>×</span> NY DROP 1</div>
+    <div class="brand">JEROME BAKER <span>×</span> NY DROP 1 <span style="opacity:0.5">/</span> SERIES 1</div>
     <div class="nav-links">
       <a href="#jars">Jars</a>
       <a href="#prerolls">Pre-Rolls</a>
@@ -323,13 +350,14 @@
 </nav>
 
 <header class="hero">
-  <div class="eyebrow">NY 2026 / Drop 1 / Launch Lineup</div>
+  <div class="eyebrow">NY 2026 · Drop 1 · Series 1 — The Flower Series</div>
   <h1>Glass Since 1991.<br>Flower for <em>the Drop.</em></h1>
   <p class="hero-sub">
-    Seven strains hand-picked to ride with the Jerome Baker NY Drop 1 — four premium jars, three pre-rolls, three vibes. Built with breeders who treat genetics the way we treat borosilicate: <strong style="color:var(--ink)">no shortcuts, no filler, no apologies.</strong>
+    Series 1 of the JBD NY Drop 1 is the flower lineup — four premium jars, three pre-rolls, seven strains hand-picked to ride with the glass. Built with breeders who treat genetics the way we treat borosilicate: <strong style="color:var(--ink)">no shortcuts, no filler, no apologies.</strong>
   </p>
   <div class="hero-meta">
     <div><span>Drop</span><strong>NY 2026 — Drop 01</strong></div>
+    <div><span>Series</span><strong>01 — Flower &amp; Pre-Roll</strong></div>
     <div><span>Format</span><strong>4 Jars / 3 Pre-Rolls</strong></div>
     <div><span>Type Split</span><strong>3 Sativa / 2 Hybrid / 1 Indica / 1 Indica-Hybrid</strong></div>
     <div><span>Provenance</span><strong>Verified via JBD Glass App</strong></div>
@@ -345,9 +373,11 @@
   <div class="grid">
 
     <article class="card">
-      <div class="card-art indica-hybrid">
+      <div class="card-art indica-hybrid" style="background-image: url('assets/cherry-gushers.jpg');">
         <span class="badge indica-hybrid">Indica · Hybrid</span>
         <span class="product-tag">Jar</span>
+        <span class="pattern-chip indica-hybrid" title="NY Drop 1 — Indica Pattern"></span>
+        <span class="img-credit">Photo: <a href="https://www.barneysfarm.com/black-cherry-gushers-700" target="_blank" rel="noopener">Barney's Farm</a></span>
       </div>
       <div class="card-body">
         <h3>Cherry Gushers</h3>
@@ -368,9 +398,11 @@
     </article>
 
     <article class="card">
-      <div class="card-art sativa">
+      <div class="card-art sativa" style="background-image: url('assets/haze.jpg');">
         <span class="badge sativa">Sativa</span>
         <span class="product-tag">Jar</span>
+        <span class="pattern-chip sativa" title="NY Drop 1 — Sativa Pattern"></span>
+        <span class="img-credit">Photo: <a href="https://shop.greenhouseseeds.nl/feminised-cannabis-seeds/families/arjans-haze-seeds/" target="_blank" rel="noopener">Greenhouse Seed Co.</a></span>
       </div>
       <div class="card-body">
         <h3>Haze</h3>
@@ -391,9 +423,11 @@
     </article>
 
     <article class="card">
-      <div class="card-art hybrid">
+      <div class="card-art hybrid" style="background-image: url('assets/double-runtz.jpg'); background-color: #f5f0e6;">
         <span class="badge hybrid">Hybrid</span>
         <span class="product-tag">Jar</span>
+        <span class="pattern-chip hybrid" title="NY Drop 1 — Hybrid Pattern"></span>
+        <span class="img-credit">Photo: <a href="https://strainy.ca/strain/7acres/double-runtz" target="_blank" rel="noopener">7ACRES via Canabotanica</a></span>
       </div>
       <div class="card-body">
         <h3>Double Runtz</h3>
@@ -414,9 +448,11 @@
     </article>
 
     <article class="card">
-      <div class="card-art sativa">
+      <div class="card-art sativa" style="background-image: url('assets/nyc-diesel.jpg');">
         <span class="badge sativa">Sativa</span>
         <span class="product-tag">Jar</span>
+        <span class="pattern-chip sativa" title="NY Drop 1 — Sativa Pattern"></span>
+        <span class="img-credit">Photo: <a href="https://www.somaseeds.nl/product/new-york-city-diesel" target="_blank" rel="noopener">Soma's Sacred Seeds</a></span>
       </div>
       <div class="card-body">
         <h3>NYC Diesel</h3>
@@ -448,9 +484,11 @@
   <div class="grid">
 
     <article class="card">
-      <div class="card-art sativa">
+      <div class="card-art sativa" style="background-image: url('assets/hella-jelly.jpg');">
         <span class="badge sativa">Sativa</span>
         <span class="product-tag">Pre-Roll</span>
+        <span class="pattern-chip sativa" title="NY Drop 1 — Sativa Pattern"></span>
+        <span class="img-credit">Photo: <a href="https://www.hendrx.farm/cultivar/hella-jelly/" target="_blank" rel="noopener">HENDRX</a></span>
       </div>
       <div class="card-body">
         <h3>Hella Jelly</h3>
@@ -471,9 +509,11 @@
     </article>
 
     <article class="card">
-      <div class="card-art hybrid">
+      <div class="card-art hybrid" style="background-image: url('assets/super-boof.jpg'); background-color: #f5f0e6;">
         <span class="badge hybrid">Hybrid</span>
         <span class="product-tag">Pre-Roll</span>
+        <span class="pattern-chip hybrid" title="NY Drop 1 — Hybrid Pattern"></span>
+        <span class="img-credit">Photo: <a href="https://weedmaps.com/strains/super-boof" target="_blank" rel="noopener">Freedom Road Flower</a></span>
       </div>
       <div class="card-body">
         <h3>Super Boof</h3>
@@ -494,9 +534,11 @@
     </article>
 
     <article class="card">
-      <div class="card-art indica">
+      <div class="card-art indica" style="background-image: url('assets/grape-nana.jpg');">
         <span class="badge indica">Indica</span>
         <span class="product-tag">Pre-Roll</span>
+        <span class="pattern-chip indica" title="NY Drop 1 — Indica Pattern"></span>
+        <span class="img-credit">Photo: <a href="https://chosenseeds.com/product/grape-nana/" target="_blank" rel="noopener">Cannarado / Chosen Seeds</a></span>
       </div>
       <div class="card-body">
         <h3>Grape Nana</h3>
@@ -579,7 +621,10 @@
 <footer>
   <div class="footer-brand">JEROME BAKER DESIGNS</div>
   <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-mute); letter-spacing: 0.18em; text-transform: uppercase;">
-    Glass since 1991 · NY Drop 1 · 2026
+    Glass since 1991 · NY 2026 · Drop 1 / Series 1
+  </div>
+  <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-mute); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 12px;">
+    drop1.cannacrypted.com · part of the cannacrypted ecosystem
   </div>
   <p class="legal">
     For adult cannabis consumers (21+). Not intended for minors or pregnant/nursing individuals. Consume responsibly. Cannabis products have not been evaluated by the FDA. Keep out of reach of children. Do not operate vehicles or machinery while consuming. Effects vary; consult a physician before use if you have a medical condition.
