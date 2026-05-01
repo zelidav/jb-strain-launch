@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jerome Baker Designs — NY Drop 1 Flower & Pre-Roll Lineup</title>
+<meta name="description" content="The flower and pre-roll lineup pairing the Jerome Baker Designs NY 2026 Drop 1. Premium genetics from Barney's Farm, Greenhouse, 7ACRES, Exotic Genetix, Humboldt Seed Co., Blockhead, and Cannarado.">
+<meta property="og:title" content="JBD NY Drop 1 — Flower & Pre-Roll Lineup">
+<meta property="og:description" content="Glass since 1991. Flower for the drop. Seven strains, three categories, one collection.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0a0a;
+    --bg-2: #141414;
+    --ink: #f5f0e6;
+    --ink-mute: #8a8378;
+    --line: #2a2620;
+    --gold: #c9a24a;
+    --sativa: #e8412c;
+    --sativa-tint: rgba(232, 65, 44, 0.12);
+    --indica: #2c4ce8;
+    --indica-tint: rgba(44, 76, 232, 0.12);
+    --hybrid: #d946a8;
+    --hybrid-tint: rgba(217, 70, 168, 0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: var(--gold); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  a:hover { border-bottom-color: var(--gold); }
+  .display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.02em; line-height: 0.95; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 1280px; margin: 0 auto;
+    padding: 16px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px;
+  }
+  .brand { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.08em; }
+  .brand span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; }
+  .nav-links a { color: var(--ink-mute); border: none; }
+  .nav-links a:hover { color: var(--ink); }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 120px 28px 100px;
+    max-width: 1280px; margin: 0 auto;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; right: -10%; width: 500px; height: 500px;
+    background: radial-gradient(circle, var(--sativa-tint), transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: -10%; width: 600px; height: 600px;
+    background: radial-gradient(circle, var(--indica-tint), transparent 70%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.3em;
+    color: var(--gold); margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 10vw, 144px);
+    line-height: 0.9; letter-spacing: 0.01em;
+    margin-bottom: 28px;
+  }
+  .hero h1 em { font-style: normal; color: var(--gold); }
+  .hero-sub {
+    max-width: 680px; font-size: 19px; line-height: 1.55;
+    color: var(--ink-mute); margin-bottom: 40px;
+  }
+  .hero-meta {
+    display: flex; gap: 40px; flex-wrap: wrap;
+    padding-top: 32px; border-top: 1px solid var(--line);
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em;
+  }
+  .hero-meta div span { display: block; color: var(--ink-mute); margin-bottom: 4px; font-size: 11px; }
+  .hero-meta div strong { font-weight: 600; }
+
+  /* SECTION */
+  section { padding: 80px 28px; max-width: 1280px; margin: 0 auto; }
+  .section-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 56px; gap: 24px; flex-wrap: wrap;
+    padding-bottom: 24px; border-bottom: 1px solid var(--line);
+  }
+  .section-head h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.95;
+  }
+  .section-head .count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; color: var(--ink-mute); letter-spacing: 0.1em;
+  }
+
+  /* CARDS */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 28px;
+  }
+  .card {
+    position: relative;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--gold); }
+  .card-art {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background-position: center; background-size: cover;
+  }
+  .card-art::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 30%, var(--bg-2) 100%);
+  }
+  .card-art.sativa { background-image: url('https://litter.catbox.moe/9o2w0r.jpg'); }
+  .card-art.indica { background-image: url('https://litter.catbox.moe/upag6m.jpg'); }
+  .card-art.hybrid { background-image: url('https://litter.catbox.moe/150tor.jpg'); }
+  .card-art.indica-hybrid {
+    background-image: linear-gradient(135deg, rgba(44,76,232,0.4), rgba(217,70,168,0.4)), url('https://litter.catbox.moe/upag6m.jpg');
+    background-size: cover, cover;
+  }
+  .badge {
+    position: absolute; top: 16px; left: 16px; z-index: 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em;
+    padding: 6px 12px; border-radius: 2px;
+    background: rgba(10,10,10,0.85); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .badge.sativa { color: var(--sativa); border-color: var(--sativa); }
+  .badge.indica { color: #6b87ff; border-color: var(--indica); }
+  .badge.hybrid { color: var(--hybrid); border-color: var(--hybrid); }
+  .badge.indica-hybrid { color: var(--hybrid); border-color: var(--hybrid); }
+  .product-tag {
+    position: absolute; top: 16px; right: 16px; z-index: 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--gold);
+    padding: 6px 10px;
+    background: rgba(10,10,10,0.85); backdrop-filter: blur(8px);
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+  }
+  .card-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+  .card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px; line-height: 0.95; letter-spacing: 0.01em;
+    margin-bottom: 8px;
+  }
+  .card .breeder {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--ink-mute); margin-bottom: 20px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .card .breeder a { color: var(--gold); border: none; }
+  .card .breeder a:hover { color: var(--ink); }
+  .card .copy {
+    font-size: 15px; line-height: 1.6; color: #d4cdc0;
+    margin-bottom: 24px;
+  }
+  .specs {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    font-size: 12px;
+  }
+  .spec-label {
+    display: block; color: var(--ink-mute);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 4px;
+  }
+  .spec-value { color: var(--ink); font-weight: 500; }
+  .terps {
+    margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line);
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .terp {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 4px 10px; border-radius: 2px;
+    background: rgba(201, 162, 74, 0.08);
+    color: var(--gold);
+    border: 1px solid rgba(201, 162, 74, 0.2);
+  }
+
+  /* PAIRING */
+  .pair {
+    margin-top: 80px; padding: 48px;
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .pair h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px; margin-bottom: 24px;
+  }
+  .pair-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+  .pair-cell { padding: 20px; border: 1px solid var(--line); border-radius: 4px; }
+  .pair-cell strong { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 22px; margin-bottom: 6px; }
+  .pair-cell p { color: var(--ink-mute); font-size: 13px; line-height: 1.5; }
+  .pair-cell.sativa { border-color: var(--sativa); }
+  .pair-cell.indica { border-color: var(--indica); }
+  .pair-cell.hybrid { border-color: var(--hybrid); }
+  .pair-cell.sativa strong { color: var(--sativa); }
+  .pair-cell.indica strong { color: #6b87ff; }
+  .pair-cell.hybrid strong { color: var(--hybrid); }
+
+  /* ABOUT */
+  .about {
+    background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    padding: 100px 28px;
+  }
+  .about-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: center;
+  }
+  @media (max-width: 880px) { .about-inner { grid-template-columns: 1fr; gap: 40px; } }
+  .about h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px); line-height: 0.95;
+    margin-bottom: 24px;
+  }
+  .about p { color: var(--ink-mute); margin-bottom: 20px; font-size: 16px; line-height: 1.7; }
+  .about p strong { color: var(--ink); }
+  .about-stat {
+    display: flex; gap: 48px; padding-top: 32px; border-top: 1px solid var(--line); margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .about-stat div { font-family: 'JetBrains Mono', monospace; }
+  .about-stat .num { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--gold); line-height: 1; }
+  .about-stat .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-mute); margin-top: 6px; }
+
+  /* PRESS */
+  .press-tools {
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 4px;
+    padding: 36px; margin-top: 56px;
+  }
+  .press-tools h3 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; margin-bottom: 16px; }
+  .press-tools p { color: var(--ink-mute); margin-bottom: 24px; font-size: 14px; }
+  .press-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+  .press-buttons button {
+    background: transparent; color: var(--ink); border: 1px solid var(--line);
+    padding: 12px 20px; font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em;
+    cursor: pointer; border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .press-buttons button:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    padding: 60px 28px 40px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  footer .footer-brand {
+    font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  footer .legal {
+    font-size: 12px; color: var(--ink-mute);
+    max-width: 720px; margin: 24px auto 0;
+    line-height: 1.6;
+  }
+
+  /* PRINT */
+  @media print {
+    nav, .press-tools, .hero::before, .hero::after { display: none !important; }
+    body { background: white; color: black; }
+    .card, .pair, .about { background: white !important; border-color: #ccc !important; }
+    .card { break-inside: avoid; }
+    h1, h2, h3 { color: black !important; }
+    .copy, p { color: #333 !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">JEROME BAKER <span>×</span> NY DROP 1</div>
+    <div class="nav-links">
+      <a href="#jars">Jars</a>
+      <a href="#prerolls">Pre-Rolls</a>
+      <a href="#pairing">Pairing</a>
+      <a href="#about">About JBD</a>
+      <a href="#press">Press</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">NY 2026 / Drop 1 / Launch Lineup</div>
+  <h1>Glass Since 1991.<br>Flower for <em>the Drop.</em></h1>
+  <p class="hero-sub">
+    Seven strains hand-picked to ride with the Jerome Baker NY Drop 1 — four premium jars, three pre-rolls, three vibes. Built with breeders who treat genetics the way we treat borosilicate: <strong style="color:var(--ink)">no shortcuts, no filler, no apologies.</strong>
+  </p>
+  <div class="hero-meta">
+    <div><span>Drop</span><strong>NY 2026 — Drop 01</strong></div>
+    <div><span>Format</span><strong>4 Jars / 3 Pre-Rolls</strong></div>
+    <div><span>Type Split</span><strong>3 Sativa / 2 Hybrid / 1 Indica / 1 Indica-Hybrid</strong></div>
+    <div><span>Provenance</span><strong>Verified via JBD Glass App</strong></div>
+  </div>
+</header>
+
+<section id="jars">
+  <div class="section-head">
+    <h2>The Jars</h2>
+    <span class="count">04 / Premium Flower</span>
+  </div>
+
+  <div class="grid">
+
+    <article class="card">
+      <div class="card-art indica-hybrid">
+        <span class="badge indica-hybrid">Indica · Hybrid</span>
+        <span class="product-tag">Jar</span>
+      </div>
+      <div class="card-body">
+        <h3>Cherry Gushers</h3>
+        <div class="breeder">Genetics — <a href="https://www.barneysfarm.com/black-cherry-gushers-700" target="_blank" rel="noopener">Barney's Farm × Backpack Boyz</a></div>
+        <p class="copy">
+          A loud collab between an Amsterdam institution and the Bay's most-bootlegged bag brand. Black Cherry Punch crossed into Gushers gives you ripe-cherry candy on the inhale and a heavy-blanket finish — the kind of jar that makes the room go quiet, then funny, then horizontal. Indica-leaning hybrid, dense, gas-forward, no notes.
+        </p>
+        <div class="specs">
+          <div><span class="spec-label">Lineage</span><span class="spec-value">Black Cherry Punch × Gushers</span></div>
+          <div><span class="spec-label">THC Range</span><span class="spec-value">28–32%</span></div>
+          <div><span class="spec-label">Flowering</span><span class="spec-value">70–75 days</span></div>
+          <div><span class="spec-label">Profile</span><span class="spec-value">Cherry · Tropical · Gas</span></div>
+        </div>
+        <div class="terps">
+          <span class="terp">Caryophyllene</span><span class="terp">Limonene</span><span class="terp">Myrcene</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-art sativa">
+        <span class="badge sativa">Sativa</span>
+        <span class="product-tag">Jar</span>
+      </div>
+      <div class="card-body">
+        <h3>Haze</h3>
+        <div class="breeder">Genetics — <a href="https://shop.greenhouseseeds.nl/" target="_blank" rel="noopener">Greenhouse Seed Co.</a></div>
+        <p class="copy">
+          The mother of every modern sativa worth lighting. Greenhouse keeps the original Haze line alive out of Amsterdam — Mexican, Colombian, Thai, and South Indian landraces stitched together into one electric, incense-and-citrus sativa. Spicy on the pull, cerebral by the second hit, and creative for hours. This is the one you smoke when the work matters.
+        </p>
+        <div class="specs">
+          <div><span class="spec-label">Lineage</span><span class="spec-value">Mex × Col × Thai × S. Indian</span></div>
+          <div><span class="spec-label">THC Range</span><span class="spec-value">18–22%</span></div>
+          <div><span class="spec-label">Origin</span><span class="spec-value">Amsterdam, est. 1994</span></div>
+          <div><span class="spec-label">Profile</span><span class="spec-value">Spice · Citrus · Incense</span></div>
+        </div>
+        <div class="terps">
+          <span class="terp">Terpinolene</span><span class="terp">Pinene</span><span class="terp">Ocimene</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-art hybrid">
+        <span class="badge hybrid">Hybrid</span>
+        <span class="product-tag">Jar</span>
+      </div>
+      <div class="card-body">
+        <h3>Double Runtz</h3>
+        <div class="breeder">Genetics — <a href="https://strainy.ca/strain/7acres/double-runtz" target="_blank" rel="noopener">7ACRES</a></div>
+        <p class="copy">
+          7ACRES grows under sunlight in a 340,000-sq-ft greenhouse in Kincardine, Ontario — and the Double Runtz cut is what happens when Detroit Runtz meets Forbidden Runtz under that kind of glass. Gas, fruit, candy, grape — the four food groups. Balanced enough to talk through, heavy enough to ride out. A genuine flagship hybrid for the lineup.
+        </p>
+        <div class="specs">
+          <div><span class="spec-label">Lineage</span><span class="spec-value">Detroit Runtz × Forbidden Runtz</span></div>
+          <div><span class="spec-label">THC Range</span><span class="spec-value">24–28%</span></div>
+          <div><span class="spec-label">Grown</span><span class="spec-value">Kincardine, ON — Greenhouse</span></div>
+          <div><span class="spec-label">Profile</span><span class="spec-value">Gas · Grape · Candy</span></div>
+        </div>
+        <div class="terps">
+          <span class="terp">Caryophyllene</span><span class="terp">Humulene</span><span class="terp">Limonene</span><span class="terp">Linalool</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-art sativa">
+        <span class="badge sativa">Sativa</span>
+        <span class="product-tag">Jar</span>
+      </div>
+      <div class="card-body">
+        <h3>NYC Diesel</h3>
+        <div class="breeder">Genetics — <a href="https://exoticgenetix.com/" target="_blank" rel="noopener">Exotic Genetix</a></div>
+        <p class="copy">
+          The strain New York actually claims as its own, run by Exotic Genetix out of Tacoma — a breeder with 100+ Cannabis Cup wins on the wall. Pink grapefruit on the nose, diesel under the floor, and a sativa lift that feels like a 6 train pulling out of Grand Central. Talkative, social, daytime — the bag you pass at the cookout.
+        </p>
+        <div class="specs">
+          <div><span class="spec-label">Lineage</span><span class="spec-value">Mexican × Afghani heritage</span></div>
+          <div><span class="spec-label">THC Range</span><span class="spec-value">20–25%</span></div>
+          <div><span class="spec-label">Breeder Est.</span><span class="spec-value">Tacoma, WA — 2008</span></div>
+          <div><span class="spec-label">Profile</span><span class="spec-value">Grapefruit · Diesel · Lime</span></div>
+        </div>
+        <div class="terps">
+          <span class="terp">Caryophyllene</span><span class="terp">Limonene</span><span class="terp">Myrcene</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="prerolls">
+  <div class="section-head">
+    <h2>The Pre-Rolls</h2>
+    <span class="count">03 / Ready-Run</span>
+  </div>
+
+  <div class="grid">
+
+    <article class="card">
+      <div class="card-art sativa">
+        <span class="badge sativa">Sativa</span>
+        <span class="product-tag">Pre-Roll</span>
+      </div>
+      <div class="card-body">
+        <h3>Hella Jelly</h3>
+        <div class="breeder">Genetics — <a href="https://humboldtseedcompany.com/hellajelly/" target="_blank" rel="noopener">Humboldt Seed Co.</a></div>
+        <p class="copy">
+          Humboldt Seed Co.'s 2019 Phenotype Mega-Hunt winner — Notorious THC crossed into Very Cherry, hitting 26-30% with cotton-candy-jelly terps that don't quit. Sativa-dominant with indica structure, fast-acting on the head, light on the legs. The pre-roll for getting out the door, not getting stuck on the couch.
+        </p>
+        <div class="specs">
+          <div><span class="spec-label">Lineage</span><span class="spec-value">Notorious THC × Very Cherry</span></div>
+          <div><span class="spec-label">THC Range</span><span class="spec-value">26–30%</span></div>
+          <div><span class="spec-label">Pheno-Hunt</span><span class="spec-value">HSC Mega-Hunt Winner '19</span></div>
+          <div><span class="spec-label">Profile</span><span class="spec-value">Jelly · Cherry · Cream</span></div>
+        </div>
+        <div class="terps">
+          <span class="terp">Terpinolene</span><span class="terp">Caryophyllene</span><span class="terp">Myrcene</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-art hybrid">
+        <span class="badge hybrid">Hybrid</span>
+        <span class="product-tag">Pre-Roll</span>
+      </div>
+      <div class="card-body">
+        <h3>Super Boof</h3>
+        <div class="breeder">Genetics — <a href="https://www.leafly.com/strains/super-boof" target="_blank" rel="noopener">Blockhead (San Diego)</a></div>
+        <p class="copy">
+          Leafly's 2024 Strain of the Year. Bred by Blockhead in San Diego as "Blockberry" — Black Cherry Punch into Tropicanna Cookies — then renamed and rocketed into the canon. Berry, citrus, funk, all on top of dense purple buds running 28-32% THC. Indica-leaning hybrid that giggles before it drops you. The cult joint with the receipts.
+        </p>
+        <div class="specs">
+          <div><span class="spec-label">Lineage</span><span class="spec-value">Black Cherry Punch × Tropicana Cookies</span></div>
+          <div><span class="spec-label">THC Range</span><span class="spec-value">28–32%</span></div>
+          <div><span class="spec-label">Awards</span><span class="spec-value">Leafly Strain of the Year '24</span></div>
+          <div><span class="spec-label">Profile</span><span class="spec-value">Berry · Citrus · Funk</span></div>
+        </div>
+        <div class="terps">
+          <span class="terp">Limonene</span><span class="terp">Caryophyllene</span><span class="terp">Linalool</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-art indica">
+        <span class="badge indica">Indica</span>
+        <span class="product-tag">Pre-Roll</span>
+      </div>
+      <div class="card-body">
+        <h3>Grape Nana</h3>
+        <div class="breeder">Genetics — <a href="https://seedfinder.eu/en/strain-info/grape-nana/cannarado-genetics" target="_blank" rel="noopener">Cannarado Genetics</a></div>
+        <p class="copy">
+          Cannarado has been chasing grape since 1998 out of Colorado — they're the house behind Grape Pie and Sundae Driver. Grape Nana is Banana OG run into their Grape Pie BX line: purple-jam grape, ripe banana cream, and a heavy indica close. The nightcap pre-roll. Light it when the day's over.
+        </p>
+        <div class="specs">
+          <div><span class="spec-label">Lineage</span><span class="spec-value">Banana OG × Grape Pie BX</span></div>
+          <div><span class="spec-label">Flowering</span><span class="spec-value">8–9 weeks</span></div>
+          <div><span class="spec-label">Breeder Est.</span><span class="spec-value">Colorado — 1998</span></div>
+          <div><span class="spec-label">Profile</span><span class="spec-value">Grape · Banana · Cream</span></div>
+        </div>
+        <div class="terps">
+          <span class="terp">Myrcene</span><span class="terp">Linalool</span><span class="terp">Caryophyllene</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="pair" id="pairing">
+    <h3>Glass × Flower Pairing Map</h3>
+    <p style="color: var(--ink-mute); margin-bottom: 28px; font-size: 14px;">
+      The NY Drop 1 Custom Clearboy color-codes the strain. Match the glass to the jar — or let the budtender call it.
+    </p>
+    <div class="pair-grid">
+      <div class="pair-cell sativa">
+        <strong>Yellow CCB → Sativa</strong>
+        <p>Pinup-on-red drop pattern. Pair with <em>Haze, NYC Diesel, Hella Jelly</em>. Daytime, social, creative.</p>
+      </div>
+      <div class="pair-cell hybrid">
+        <strong>Blue CCB → Hybrid</strong>
+        <p>Luchador-mask drop pattern. Pair with <em>Double Runtz, Super Boof</em>. Balanced, all-day-runnable.</p>
+      </div>
+      <div class="pair-cell indica">
+        <strong>Red CCB → Indica</strong>
+        <p>Legs-in-heels polka-dot pattern. Pair with <em>Cherry Gushers, Grape Nana</em>. Wind-down, weighted, slow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div>
+      <div class="eyebrow">About</div>
+      <h2>JBD. Since '91.</h2>
+    </div>
+    <div>
+      <p><strong>Jerome Baker Designs</strong> has been blowing borosilicate since 1991 — a Pacific Northwest glass studio that put hand-built American glass on the cultural map and never let it slip. The pieces in NY Drop 1 carry hand-painted drop patterns, color-coded by strain, and every collectible piece is provenance-verified through the JBD Glass app.</p>
+      <p>The flower lineup follows the same standard. Every strain in this drop comes from a breeder who put their name on it before it became a trend — Barney's Farm, Greenhouse, 7ACRES, Exotic Genetix, Humboldt Seed Co., Blockhead, Cannarado. Genetics with receipts. Glass with receipts.</p>
+      <div class="about-stat">
+        <div><div class="num">35</div><div class="lbl">Years Blowing Glass</div></div>
+        <div><div class="num">07</div><div class="lbl">Launch Strains</div></div>
+        <div><div class="num">100%</div><div class="lbl">Provenance-Verified</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="press">
+  <div class="section-head">
+    <h2>Press &amp; Sales Tools</h2>
+    <span class="count">For media, retail, &amp; budtenders</span>
+  </div>
+
+  <div class="press-tools">
+    <h3>Quick Copy</h3>
+    <p>One-click to copy strain blurbs, full press release, or budtender talking-point sheet to clipboard. Drop into Notes, Slack, an email, or the back of a menu card.</p>
+    <div class="press-buttons">
+      <button onclick="copyAllBlurbs()">Copy All 7 Strain Blurbs</button>
+      <button onclick="copyPressRelease()">Copy Press Release</button>
+      <button onclick="copyBudtenderSheet()">Copy Budtender Sheet</button>
+      <button onclick="window.print()">Print / Save PDF</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">JEROME BAKER DESIGNS</div>
+  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-mute); letter-spacing: 0.18em; text-transform: uppercase;">
+    Glass since 1991 · NY Drop 1 · 2026
+  </div>
+  <p class="legal">
+    For adult cannabis consumers (21+). Not intended for minors or pregnant/nursing individuals. Consume responsibly. Cannabis products have not been evaluated by the FDA. Keep out of reach of children. Do not operate vehicles or machinery while consuming. Effects vary; consult a physician before use if you have a medical condition.
+  </p>
+</footer>
+
+<script>
+  const blurbs = [
+    "CHERRY GUSHERS — Barney's Farm × Backpack Boyz. Black Cherry Punch crossed into Gushers. Indica-leaning hybrid, ripe-cherry candy on the inhale, heavy blanket on the exit. 28-32% THC.",
+    "HAZE — Greenhouse Seed Co. The original Haze landrace, kept alive out of Amsterdam since 1994. Spicy, citrus, incense — cerebral and creative. Sativa, 18-22% THC.",
+    "DOUBLE RUNTZ — 7ACRES. Detroit Runtz × Forbidden Runtz, sun-grown in a 340,000-sq-ft Ontario greenhouse. Gas, grape, candy. Balanced hybrid, 24-28% THC.",
+    "NYC DIESEL — Exotic Genetix. The NY-claimed sativa, run by a 100+ Cup-winning Tacoma breeder. Pink grapefruit, diesel, lime. Talkative and social. 20-25% THC.",
+    "HELLA JELLY — Humboldt Seed Co. Notorious THC × Very Cherry. HSC's 2019 Pheno-Hunt winner. Cotton-candy jelly, fast-acting sativa. 26-30% THC.",
+    "SUPER BOOF — Blockhead (San Diego). Black Cherry Punch × Tropicana Cookies. Leafly's 2024 Strain of the Year. Berry, citrus, funk. Hybrid, 28-32% THC.",
+    "GRAPE NANA — Cannarado Genetics. Banana OG × Grape Pie BX. Purple grape jam, banana cream, indica close. The nightcap. 8-9 week flower."
+  ];
+
+  const press = `FOR IMMEDIATE RELEASE\n\nJEROME BAKER DESIGNS UNVEILS NY DROP 1 FLOWER & PRE-ROLL LINEUP\n\nThe Pacific Northwest glass studio (est. 1991) launches its NY 2026 Drop 1 with a curated seven-strain flower and pre-roll collection — pairing limited-edition hand-blown borosilicate with genetics from Barney's Farm × Backpack Boyz, Greenhouse Seed Co., 7ACRES, Exotic Genetix, Humboldt Seed Co., Blockhead, and Cannarado Genetics.\n\nThe lineup is structured around the drop's three strain colorways:\n• YELLOW (Sativa): Haze, NYC Diesel, Hella Jelly\n• BLUE (Hybrid): Double Runtz, Super Boof\n• RED (Indica): Cherry Gushers, Grape Nana\n\nEvery JBD glass piece in NY Drop 1 carries a hand-painted strain pattern and is provenance-verified through the JBD Glass app — pairing the same chain-of-custody assurance to the glass that the lineup's breeders bring to the genetics.\n\n"Glass with receipts. Genetics with receipts. That's the whole drop." — Jerome Baker Designs\n\nNY Drop 1 is available in limited quantities at participating New York dispensaries.\n\n— ENDS —`;
+
+  const budtender = `BUDTENDER QUICK-REF — JBD NY DROP 1\n\n=== JARS ===\n\n1. CHERRY GUSHERS (Indica/Hybrid) — Barney's Farm × Backpack Boyz\n   Lineage: Black Cherry Punch × Gushers · 28-32% THC\n   Sell on: heavy body, cherry-candy nose, evening pairing\n   Pair w/ glass: RED CCB (Indica colorway)\n\n2. HAZE (Sativa) — Greenhouse Seed Co.\n   Lineage: Mex × Col × Thai × S. Indian landraces · 18-22% THC\n   Sell on: original sativa heritage, cerebral, creative work\n   Pair w/ glass: YELLOW CCB (Sativa colorway)\n\n3. DOUBLE RUNTZ (Hybrid) — 7ACRES\n   Lineage: Detroit Runtz × Forbidden Runtz · 24-28% THC\n   Sell on: sun-grown Canadian greenhouse, gas/grape, balanced\n   Pair w/ glass: BLUE CCB (Hybrid colorway)\n\n4. NYC DIESEL (Sativa) — Exotic Genetix\n   Lineage: Mexican × Afghani heritage · 20-25% THC\n   Sell on: NY pride pick, grapefruit/diesel, social daytime\n   Pair w/ glass: YELLOW CCB (Sativa colorway)\n\n=== PRE-ROLLS ===\n\n5. HELLA JELLY (Sativa) — Humboldt Seed Co.\n   Lineage: Notorious THC × Very Cherry · 26-30% THC\n   Sell on: HSC pheno-hunt winner, jelly-cherry, fast lift\n   Pair w/ glass: YELLOW CCB (Sativa colorway)\n\n6. SUPER BOOF (Hybrid) — Blockhead\n   Lineage: Black Cherry Punch × Tropicana Cookies · 28-32% THC\n   Sell on: Leafly 2024 Strain of the Year, berry/funk\n   Pair w/ glass: BLUE CCB (Hybrid colorway)\n\n7. GRAPE NANA (Indica) — Cannarado Genetics\n   Lineage: Banana OG × Grape Pie BX\n   Sell on: nightcap pick, grape-banana, sleep\n   Pair w/ glass: RED CCB (Indica colorway)\n\nUPSELL: Every JBD glass piece in this drop is provenance-verified — show customers the JBD Glass app scan flow on the demo phone.`;
+
+  function copyToClipboard(text, label) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      const orig = btn.textContent;
+      btn.textContent = '✓ Copied — ' + label;
+      btn.style.color = 'var(--gold)';
+      btn.style.borderColor = 'var(--gold)';
+      setTimeout(() => { btn.textContent = orig; btn.style.color = ''; btn.style.borderColor = ''; }, 2200);
+    });
+  }
+  function copyAllBlurbs() { copyToClipboard(blurbs.join('\n\n'), 'Strain Blurbs'); }
+  function copyPressRelease() { copyToClipboard(press, 'Press Release'); }
+  function copyBudtenderSheet() { copyToClipboard(budtender, 'Budtender Sheet'); }
+</script>
+
+</body>
+</html>
