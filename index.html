@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -306,6 +307,31 @@
     transition: border-color 0.2s, color 0.2s;
   }
   .press-buttons button:hover { border-color: var(--gold); color: var(--gold); }
+
+  .toolkit-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+  .toolkit-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 18px; border: 1px solid var(--line); border-radius: 4px;
+    background: rgba(20,20,20,0.5);
+    transition: border-color 0.2s;
+  }
+  .toolkit-row:hover { border-color: rgba(201,162,74,0.35); }
+  .toolkit-label { flex: 1; font-size: 14px; line-height: 1.4; }
+  .toolkit-label strong { color: var(--ink); font-weight: 600; }
+  .toolkit-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-mute); letter-spacing: 0.05em; }
+  .toolkit-actions { display: flex; gap: 8px; flex-shrink: 0; }
+  .toolkit-actions button {
+    background: transparent; color: var(--ink); border: 1px solid var(--line);
+    padding: 9px 18px; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+    cursor: pointer; border-radius: 2px; min-width: 72px;
+    transition: all 0.2s;
+  }
+  .toolkit-actions button:hover { border-color: var(--gold); color: var(--gold); }
+  @media (max-width: 640px) {
+    .toolkit-row { flex-direction: column; align-items: stretch; }
+    .toolkit-actions { justify-content: flex-end; }
+  }
 
   /* FOOTER */
   footer {
@@ -607,13 +633,36 @@
   </div>
 
   <div class="press-tools">
-    <h3>Quick Copy</h3>
-    <p>One-click to copy strain blurbs, full press release, or budtender talking-point sheet to clipboard. Drop into Notes, Slack, an email, or the back of a menu card.</p>
-    <div class="press-buttons">
-      <button type="button" onclick="copyAllBlurbs(this)">Copy All 7 Strain Blurbs</button>
-      <button type="button" onclick="copyPressRelease(this)">Copy Press Release</button>
-      <button type="button" onclick="copyBudtenderSheet(this)">Copy Budtender Sheet</button>
-      <button type="button" onclick="window.print()">Print / Save PDF</button>
+    <h3>Press &amp; Sales Toolkit</h3>
+    <p>Grab the text, or download a branded PDF ready for press, sales decks, or print at the back of a menu card.</p>
+    <div class="toolkit-grid">
+      <div class="toolkit-row">
+        <div class="toolkit-label"><strong>Strain Blurbs</strong><br><span class="toolkit-sub">7 short blurbs, one per strain</span></div>
+        <div class="toolkit-actions">
+          <button type="button" onclick="copyAllBlurbs(this)">Copy</button>
+          <button type="button" onclick="downloadBlurbsPDF(this)">PDF</button>
+        </div>
+      </div>
+      <div class="toolkit-row">
+        <div class="toolkit-label"><strong>Press Release</strong><br><span class="toolkit-sub">Formal release, ready for media</span></div>
+        <div class="toolkit-actions">
+          <button type="button" onclick="copyPressRelease(this)">Copy</button>
+          <button type="button" onclick="downloadPressPDF(this)">PDF</button>
+        </div>
+      </div>
+      <div class="toolkit-row">
+        <div class="toolkit-label"><strong>Budtender Sheet</strong><br><span class="toolkit-sub">Quick-ref for retail floor staff</span></div>
+        <div class="toolkit-actions">
+          <button type="button" onclick="copyBudtenderSheet(this)">Copy</button>
+          <button type="button" onclick="downloadBudtenderPDF(this)">PDF</button>
+        </div>
+      </div>
+      <div class="toolkit-row">
+        <div class="toolkit-label"><strong>Full Page</strong><br><span class="toolkit-sub">Browser print to PDF — entire site</span></div>
+        <div class="toolkit-actions">
+          <button type="button" onclick="window.print()">Print / Save PDF</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -686,6 +735,432 @@
   function copyAllBlurbs(btn)     { copyToClipboard(blurbs.join('\n\n'), 'Strain Blurbs', btn); }
   function copyPressRelease(btn)  { copyToClipboard(press, 'Press Release', btn); }
   function copyBudtenderSheet(btn){ copyToClipboard(budtender, 'Budtender Sheet', btn); }
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // BRANDED PDF GENERATION (jsPDF)
+  // ═══════════════════════════════════════════════════════════════════════
+  // Color palette mirrors the page's --bg / --gold / --ink tokens, but on
+  // white because PDFs get printed and emailed where dark backgrounds eat ink.
+  const PDF_COLORS = {
+    ink:    [10, 10, 10],
+    sub:    [110, 105, 95],
+    line:   [210, 200, 180],
+    gold:   [201, 162, 74],
+    sativa: [232, 65, 44],
+    indica: [44, 76, 232],
+    hybrid: [217, 70, 168],
+  };
+
+  // Structured strain data — single source of truth for PDF rendering
+  const STRAINS_DATA = [
+    { name: 'CHERRY GUSHERS', type: 'INDICA·HYBRID', format: 'JAR', breeder: "Barney's Farm × Backpack Boyz",
+      lineage: 'Black Cherry Punch × Gushers', thc: '28-32%', terps: 'Caryophyllene · Limonene · Myrcene',
+      copy: "A loud collab between an Amsterdam institution and the Bay's most-bootlegged bag brand. Black Cherry Punch crossed into Gushers gives you ripe-cherry candy on the inhale and a heavy-blanket finish — the kind of jar that makes the room go quiet, then funny, then horizontal.",
+      sell: 'heavy body, cherry-candy nose, evening pairing', glass: 'RED CCB (Indica colorway)' },
+    { name: 'HAZE', type: 'SATIVA', format: 'JAR', breeder: 'Greenhouse Seed Co.',
+      lineage: 'Mexican × Colombian × Thai × S. Indian landraces', thc: '18-22%', terps: 'Terpinolene · Pinene · Ocimene',
+      copy: 'The mother of every modern sativa worth lighting. Greenhouse keeps the original Haze line alive out of Amsterdam — landraces stitched into one electric, incense-and-citrus sativa. Spicy on the pull, cerebral by the second hit, creative for hours.',
+      sell: 'original sativa heritage, cerebral, creative work', glass: 'YELLOW CCB (Sativa colorway)' },
+    { name: 'DOUBLE RUNTZ', type: 'HYBRID', format: 'JAR', breeder: '7ACRES',
+      lineage: 'Detroit Runtz × Forbidden Runtz', thc: '24-28%', terps: 'Caryophyllene · Humulene · Limonene · Linalool',
+      copy: '7ACRES grows under sunlight in a 340,000-sq-ft greenhouse in Kincardine, Ontario — and the Double Runtz cut is what happens when Detroit Runtz meets Forbidden Runtz under that kind of glass. Gas, fruit, candy, grape. Balanced enough to talk through, heavy enough to ride out.',
+      sell: 'sun-grown Canadian greenhouse, gas/grape, balanced', glass: 'BLUE CCB (Hybrid colorway)' },
+    { name: 'NYC DIESEL', type: 'SATIVA', format: 'JAR', breeder: 'Exotic Genetix',
+      lineage: 'Mexican × Afghani heritage', thc: '20-25%', terps: 'Caryophyllene · Limonene · Myrcene',
+      copy: 'The strain New York actually claims as its own, run by Exotic Genetix out of Tacoma — a breeder with 100+ Cannabis Cup wins on the wall. Pink grapefruit on the nose, diesel under the floor, and a sativa lift that feels like a 6 train pulling out of Grand Central.',
+      sell: 'NY pride pick, grapefruit/diesel, social daytime', glass: 'YELLOW CCB (Sativa colorway)' },
+    { name: 'HELLA JELLY', type: 'SATIVA', format: 'PRE-ROLL', breeder: 'Humboldt Seed Co.',
+      lineage: 'Notorious THC × Very Cherry', thc: '26-30%', terps: 'Terpinolene · Caryophyllene · Myrcene',
+      copy: "Humboldt Seed Co.'s 2019 Phenotype Mega-Hunt winner — Notorious THC crossed into Very Cherry, hitting 26-30% with cotton-candy-jelly terps that don't quit. Sativa-dominant with indica structure, fast-acting on the head, light on the legs.",
+      sell: 'HSC pheno-hunt winner, jelly-cherry, fast lift', glass: 'YELLOW CCB (Sativa colorway)' },
+    { name: 'SUPER BOOF', type: 'HYBRID', format: 'PRE-ROLL', breeder: 'Blockhead (San Diego)',
+      lineage: 'Black Cherry Punch × Tropicana Cookies', thc: '28-32%', terps: 'Limonene · Caryophyllene · Linalool',
+      copy: 'Leafly\'s 2024 Strain of the Year. Bred by Blockhead in San Diego as "Blockberry" — Black Cherry Punch into Tropicanna Cookies — then renamed and rocketed into the canon. Berry, citrus, funk, all on top of dense purple buds running 28-32% THC.',
+      sell: 'Leafly 2024 Strain of the Year, berry/funk', glass: 'BLUE CCB (Hybrid colorway)' },
+    { name: 'GRAPE NANA', type: 'INDICA', format: 'PRE-ROLL', breeder: 'Cannarado Genetics',
+      lineage: 'Banana OG × Grape Pie BX', thc: '20-24%', terps: 'Myrcene · Linalool · Caryophyllene',
+      copy: 'Cannarado has been chasing grape since 1998 out of Colorado — they\'re the house behind Grape Pie and Sundae Driver. Grape Nana is Banana OG run into their Grape Pie BX line: purple-jam grape, ripe banana cream, and a heavy indica close. The nightcap pre-roll.',
+      sell: 'nightcap pick, grape-banana, sleep', glass: 'RED CCB (Indica colorway)' },
+  ];
+
+  function _typeColor(t) {
+    const u = (t || '').toUpperCase();
+    if (u.includes('SATIVA')) return PDF_COLORS.sativa;
+    if (u.includes('INDICA')) return PDF_COLORS.indica;
+    return PDF_COLORS.hybrid;
+  }
+
+  function _drawHeader(doc, pageW) {
+    // Top brand band
+    doc.setFillColor(...PDF_COLORS.ink);
+    doc.rect(0, 0, pageW, 22, 'F');
+    doc.setTextColor(255, 241, 0);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.text('JEROME BAKER DESIGNS', 14, 9);
+    doc.setTextColor(...PDF_COLORS.gold);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.text('GLASS SINCE 1991', 14, 15);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(255, 255, 255);
+    doc.text('NY 2026 · DROP 1 · SERIES 1', pageW - 14, 12, { align: 'right' });
+    // Gold accent line
+    doc.setDrawColor(...PDF_COLORS.gold);
+    doc.setLineWidth(0.6);
+    doc.line(0, 22, pageW, 22);
+  }
+
+  function _drawFooter(doc, pageW, pageH, label) {
+    doc.setDrawColor(...PDF_COLORS.line);
+    doc.setLineWidth(0.2);
+    doc.line(14, pageH - 14, pageW - 14, pageH - 14);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.setTextColor(...PDF_COLORS.sub);
+    doc.text('drop1.cannacrypted.com', 14, pageH - 8);
+    if (label) doc.text(label, pageW / 2, pageH - 8, { align: 'center' });
+    const page = doc.internal.getCurrentPageInfo().pageNumber;
+    doc.text(`p. ${page}`, pageW - 14, pageH - 8, { align: 'right' });
+  }
+
+  function _newDoc() {
+    const { jsPDF } = window.jspdf;
+    return new jsPDF({ unit: 'mm', format: 'letter', orientation: 'portrait' });
+  }
+
+  function _newPage(doc, label) {
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    _drawHeader(doc, pageW);
+    _drawFooter(doc, pageW, pageH, label);
+    return { pageW, pageH, top: 30 };
+  }
+
+  // ── 1. Strain Blurbs PDF — full strain cards with type/lineage/terps ──
+  function downloadBlurbsPDF(btn) {
+    try {
+      const doc = _newDoc();
+      let { pageW, pageH, top } = _newPage(doc, 'Strain Lineup · Press & Sales One-Sheet');
+      const margin = 14;
+      const colW = (pageW - margin * 2);
+
+      // Big title
+      doc.setTextColor(...PDF_COLORS.ink);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(28);
+      doc.text('THE STRAIN LINEUP', margin, top + 10);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(...PDF_COLORS.sub);
+      doc.text('Seven strains. Three categories. One drop.', margin, top + 17);
+      let y = top + 26;
+
+      STRAINS_DATA.forEach((s, i) => {
+        const cardH = 38;
+        if (y + cardH > pageH - 22) {
+          doc.addPage();
+          ({ pageW, pageH, top } = _newPage(doc, 'Strain Lineup · Press & Sales One-Sheet'));
+          y = top + 8;
+        }
+        // Type accent strip on left
+        doc.setFillColor(..._typeColor(s.type));
+        doc.rect(margin, y, 1.5, cardH, 'F');
+        // Card border
+        doc.setDrawColor(...PDF_COLORS.line);
+        doc.setLineWidth(0.3);
+        doc.rect(margin + 1.5, y, colW - 1.5, cardH, 'S');
+
+        // Strain name
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(15);
+        doc.setTextColor(...PDF_COLORS.ink);
+        doc.text(s.name, margin + 6, y + 8);
+
+        // Type pill (right-aligned in title row)
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8);
+        doc.setTextColor(..._typeColor(s.type));
+        doc.text(`${s.type} · ${s.format}`, pageW - margin - 4, y + 8, { align: 'right' });
+
+        // Breeder line
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(9);
+        doc.setTextColor(...PDF_COLORS.gold);
+        doc.text(`Genetics — ${s.breeder}`, margin + 6, y + 14);
+
+        // Description (wrapped)
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        doc.setTextColor(...PDF_COLORS.ink);
+        const lines = doc.splitTextToSize(s.copy, colW - 12);
+        doc.text(lines.slice(0, 3), margin + 6, y + 20);
+
+        // Bottom meta row
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7);
+        doc.setTextColor(...PDF_COLORS.sub);
+        doc.text(`LINEAGE  ${s.lineage}`, margin + 6, y + cardH - 5);
+        doc.text(`THC  ${s.thc}`, margin + 6 + 100, y + cardH - 5);
+        doc.text(`TERPS  ${s.terps}`, margin + 6, y + cardH - 1.5);
+
+        y += cardH + 4;
+      });
+
+      doc.save('JBD_NY-Drop1_Strain-Lineup.pdf');
+      flashButton(btn, 'PDF downloaded');
+    } catch (e) {
+      console.error(e);
+      flashButton(btn, 'PDF failed', true);
+    }
+  }
+
+  // ── 2. Press Release PDF — formal, single page ──
+  function downloadPressPDF(btn) {
+    try {
+      const doc = _newDoc();
+      let { pageW, pageH, top } = _newPage(doc, 'For Immediate Release');
+      const margin = 18;
+      const colW = pageW - margin * 2;
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(...PDF_COLORS.gold);
+      doc.text('FOR IMMEDIATE RELEASE', margin, top + 8);
+      doc.setTextColor(...PDF_COLORS.sub);
+      doc.text(`NEW YORK · ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase()}`,
+               pageW - margin, top + 8, { align: 'right' });
+
+      // Headline
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(22);
+      doc.setTextColor(...PDF_COLORS.ink);
+      const headline = 'Jerome Baker Designs Unveils NY Drop 1 Flower & Pre-Roll Lineup';
+      const hLines = doc.splitTextToSize(headline, colW);
+      doc.text(hLines, margin, top + 22);
+
+      // Subhead
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(11);
+      doc.setTextColor(...PDF_COLORS.sub);
+      const sub = 'Pacific Northwest glass studio (est. 1991) launches its NY 2026 Drop 1 — pairing limited-edition hand-blown borosilicate with a curated seven-strain flower and pre-roll collection.';
+      const sLines = doc.splitTextToSize(sub, colW);
+      let y = top + 22 + hLines.length * 8 + 4;
+      doc.text(sLines, margin, y);
+      y += sLines.length * 5 + 6;
+
+      // Divider
+      doc.setDrawColor(...PDF_COLORS.gold);
+      doc.setLineWidth(0.4);
+      doc.line(margin, y, margin + 30, y);
+      y += 8;
+
+      // Body
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(...PDF_COLORS.ink);
+      const para1 = "The lineup pairs Jerome Baker Designs' hand-blown borosilicate with cannabis genetics from breeders who set the modern canon — Barney's Farm × Backpack Boyz, Greenhouse Seed Co., 7ACRES, Exotic Genetix, Humboldt Seed Co., Blockhead, and Cannarado Genetics. Every JBD glass piece in the drop is provenance-verified through the JBD Glass app, extending the same chain-of-custody assurance to the glass that the lineup's breeders bring to the genetics.";
+      doc.text(doc.splitTextToSize(para1, colW), margin, y);
+      y += doc.splitTextToSize(para1, colW).length * 5 + 6;
+
+      // Colorway block
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(...PDF_COLORS.ink);
+      doc.text('THE LINEUP IS STRUCTURED AROUND THREE STRAIN COLORWAYS:', margin, y);
+      y += 6;
+
+      const colorways = [
+        { color: PDF_COLORS.sativa, label: 'YELLOW (Sativa):', strains: 'Haze, NYC Diesel, Hella Jelly' },
+        { color: PDF_COLORS.hybrid, label: 'BLUE (Hybrid):', strains: 'Double Runtz, Super Boof' },
+        { color: PDF_COLORS.indica, label: 'RED (Indica):', strains: 'Cherry Gushers, Grape Nana' },
+      ];
+      colorways.forEach(c => {
+        doc.setFillColor(...c.color);
+        doc.circle(margin + 2, y - 1.2, 1.5, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(...PDF_COLORS.ink);
+        doc.text(c.label, margin + 6, y);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...PDF_COLORS.sub);
+        doc.text(c.strains, margin + 36, y);
+        y += 6;
+      });
+      y += 4;
+
+      // Pull quote
+      doc.setFillColor(248, 244, 234);
+      doc.rect(margin, y, colW, 18, 'F');
+      doc.setDrawColor(...PDF_COLORS.gold);
+      doc.setLineWidth(1);
+      doc.line(margin, y, margin, y + 18);
+      doc.setFont('helvetica', 'bolditalic');
+      doc.setFontSize(11);
+      doc.setTextColor(...PDF_COLORS.ink);
+      doc.text('"Glass with receipts. Genetics with receipts. That\'s the whole drop."', margin + 6, y + 8);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(...PDF_COLORS.sub);
+      doc.text('— JEROME BAKER DESIGNS', margin + 6, y + 14);
+      y += 24;
+
+      // Availability
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(...PDF_COLORS.ink);
+      const avail = 'NY Drop 1 is available in limited quantities at participating New York dispensaries beginning May 2026.';
+      doc.text(doc.splitTextToSize(avail, colW), margin, y);
+      y += 12;
+
+      // Contact / about box
+      doc.setDrawColor(...PDF_COLORS.line);
+      doc.setLineWidth(0.3);
+      doc.rect(margin, y, colW, 26, 'S');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(...PDF_COLORS.gold);
+      doc.text('ABOUT JEROME BAKER DESIGNS', margin + 4, y + 6);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(...PDF_COLORS.ink);
+      const about = "Jerome Baker Designs has hand-blown borosilicate glass since 1991. The Pacific Northwest studio is one of the longest-running American glass houses and put hand-built American pipework on the cultural map. NY Drop 1 is its first NY-market release with provenance verification.";
+      doc.text(doc.splitTextToSize(about, colW - 8), margin + 4, y + 12);
+      y += 32;
+
+      // Press contact
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(...PDF_COLORS.sub);
+      doc.text('PRESS CONTACT', margin, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...PDF_COLORS.ink);
+      doc.text('press@cannacrypted.com  ·  drop1.cannacrypted.com', margin, y + 5);
+
+      // — ENDS —
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(...PDF_COLORS.gold);
+      doc.text('— ENDS —', pageW / 2, pageH - 22, { align: 'center' });
+
+      doc.save('JBD_NY-Drop1_Press-Release.pdf');
+      flashButton(btn, 'PDF downloaded');
+    } catch (e) {
+      console.error(e);
+      flashButton(btn, 'PDF failed', true);
+    }
+  }
+
+  // ── 3. Budtender Sheet PDF — quick-ref card per strain ──
+  function downloadBudtenderPDF(btn) {
+    try {
+      const doc = _newDoc();
+      let { pageW, pageH, top } = _newPage(doc, 'Budtender Quick-Ref');
+      const margin = 12;
+      const colW = pageW - margin * 2;
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(22);
+      doc.setTextColor(...PDF_COLORS.ink);
+      doc.text('BUDTENDER QUICK-REF', margin, top + 10);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(...PDF_COLORS.sub);
+      doc.text('JBD NY Drop 1 · Talking points + glass pairing per strain', margin, top + 17);
+
+      let y = top + 26;
+      let categoryWritten = { 'JAR': false, 'PRE-ROLL': false };
+
+      STRAINS_DATA.forEach((s) => {
+        // Category divider when format changes
+        if (!categoryWritten[s.format]) {
+          if (y > top + 26) y += 4;
+          doc.setFillColor(...PDF_COLORS.ink);
+          doc.rect(margin, y, colW, 6, 'F');
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(9);
+          doc.setTextColor(...PDF_COLORS.gold);
+          doc.text(s.format === 'JAR' ? '═══ JARS (7g)' : '═══ PRE-ROLLS (1g)', margin + 3, y + 4.2);
+          y += 10;
+          categoryWritten[s.format] = true;
+        }
+
+        const cardH = 26;
+        if (y + cardH > pageH - 22) {
+          doc.addPage();
+          ({ pageW, pageH, top } = _newPage(doc, 'Budtender Quick-Ref'));
+          y = top + 8;
+        }
+
+        // Type accent
+        doc.setFillColor(..._typeColor(s.type));
+        doc.rect(margin, y, 1.5, cardH, 'F');
+        doc.setDrawColor(...PDF_COLORS.line);
+        doc.setLineWidth(0.3);
+        doc.rect(margin + 1.5, y, colW - 1.5, cardH, 'S');
+
+        // Strain name + type
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(13);
+        doc.setTextColor(...PDF_COLORS.ink);
+        doc.text(s.name, margin + 5, y + 7);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8);
+        doc.setTextColor(..._typeColor(s.type));
+        doc.text(s.type, pageW - margin - 4, y + 7, { align: 'right' });
+
+        // Breeder · lineage · THC
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(...PDF_COLORS.gold);
+        doc.text(s.breeder, margin + 5, y + 12);
+        doc.setTextColor(...PDF_COLORS.sub);
+        doc.text(`${s.lineage}  ·  ${s.thc} THC`, margin + 5, y + 16);
+
+        // Sell on
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.5);
+        doc.setTextColor(...PDF_COLORS.ink);
+        doc.text('SELL ON:', margin + 5, y + 21);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.text(s.sell, margin + 22, y + 21);
+
+        // Glass pairing
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.5);
+        doc.setTextColor(...PDF_COLORS.gold);
+        doc.text(`GLASS: ${s.glass}`, pageW - margin - 4, y + 21, { align: 'right' });
+
+        y += cardH + 3;
+      });
+
+      // Upsell footer
+      if (y + 18 > pageH - 22) {
+        doc.addPage();
+        ({ pageW, pageH, top } = _newPage(doc, 'Budtender Quick-Ref'));
+        y = top + 8;
+      }
+      y += 4;
+      doc.setFillColor(...PDF_COLORS.gold);
+      doc.rect(margin, y, colW, 14, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(...PDF_COLORS.ink);
+      doc.text('UPSELL', margin + 4, y + 5);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.text('Every JBD glass piece in this drop is provenance-verified — show customers the JBD Glass app scan flow on the demo phone.',
+              margin + 4, y + 10);
+
+      doc.save('JBD_NY-Drop1_Budtender-QuickRef.pdf');
+      flashButton(btn, 'PDF downloaded');
+    } catch (e) {
+      console.error(e);
+      flashButton(btn, 'PDF failed', true);
+    }
+  }
 </script>
 
 </body>
