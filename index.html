@@ -610,10 +610,10 @@
     <h3>Quick Copy</h3>
     <p>One-click to copy strain blurbs, full press release, or budtender talking-point sheet to clipboard. Drop into Notes, Slack, an email, or the back of a menu card.</p>
     <div class="press-buttons">
-      <button onclick="copyAllBlurbs()">Copy All 7 Strain Blurbs</button>
-      <button onclick="copyPressRelease()">Copy Press Release</button>
-      <button onclick="copyBudtenderSheet()">Copy Budtender Sheet</button>
-      <button onclick="window.print()">Print / Save PDF</button>
+      <button type="button" onclick="copyAllBlurbs(this)">Copy All 7 Strain Blurbs</button>
+      <button type="button" onclick="copyPressRelease(this)">Copy Press Release</button>
+      <button type="button" onclick="copyBudtenderSheet(this)">Copy Budtender Sheet</button>
+      <button type="button" onclick="window.print()">Print / Save PDF</button>
     </div>
   </div>
 </section>
@@ -646,19 +646,46 @@
 
   const budtender = `BUDTENDER QUICK-REF — JBD NY DROP 1\n\n=== JARS ===\n\n1. CHERRY GUSHERS (Indica/Hybrid) — Barney's Farm × Backpack Boyz\n   Lineage: Black Cherry Punch × Gushers · 28-32% THC\n   Sell on: heavy body, cherry-candy nose, evening pairing\n   Pair w/ glass: RED CCB (Indica colorway)\n\n2. HAZE (Sativa) — Greenhouse Seed Co.\n   Lineage: Mex × Col × Thai × S. Indian landraces · 18-22% THC\n   Sell on: original sativa heritage, cerebral, creative work\n   Pair w/ glass: YELLOW CCB (Sativa colorway)\n\n3. DOUBLE RUNTZ (Hybrid) — 7ACRES\n   Lineage: Detroit Runtz × Forbidden Runtz · 24-28% THC\n   Sell on: sun-grown Canadian greenhouse, gas/grape, balanced\n   Pair w/ glass: BLUE CCB (Hybrid colorway)\n\n4. NYC DIESEL (Sativa) — Exotic Genetix\n   Lineage: Mexican × Afghani heritage · 20-25% THC\n   Sell on: NY pride pick, grapefruit/diesel, social daytime\n   Pair w/ glass: YELLOW CCB (Sativa colorway)\n\n=== PRE-ROLLS ===\n\n5. HELLA JELLY (Sativa) — Humboldt Seed Co.\n   Lineage: Notorious THC × Very Cherry · 26-30% THC\n   Sell on: HSC pheno-hunt winner, jelly-cherry, fast lift\n   Pair w/ glass: YELLOW CCB (Sativa colorway)\n\n6. SUPER BOOF (Hybrid) — Blockhead\n   Lineage: Black Cherry Punch × Tropicana Cookies · 28-32% THC\n   Sell on: Leafly 2024 Strain of the Year, berry/funk\n   Pair w/ glass: BLUE CCB (Hybrid colorway)\n\n7. GRAPE NANA (Indica) — Cannarado Genetics\n   Lineage: Banana OG × Grape Pie BX\n   Sell on: nightcap pick, grape-banana, sleep\n   Pair w/ glass: RED CCB (Indica colorway)\n\nUPSELL: Every JBD glass piece in this drop is provenance-verified — show customers the JBD Glass app scan flow on the demo phone.`;
 
-  function copyToClipboard(text, label) {
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = event.target;
-      const orig = btn.textContent;
-      btn.textContent = '✓ Copied — ' + label;
-      btn.style.color = 'var(--gold)';
-      btn.style.borderColor = 'var(--gold)';
-      setTimeout(() => { btn.textContent = orig; btn.style.color = ''; btn.style.borderColor = ''; }, 2200);
-    });
+  function flashButton(btn, label, isErr) {
+    if (!btn) return;
+    const orig = btn.textContent;
+    btn.textContent = (isErr ? '⚠ ' : '✓ Copied — ') + label;
+    btn.style.color = isErr ? '#ff6b6b' : 'var(--gold)';
+    btn.style.borderColor = isErr ? '#ff6b6b' : 'var(--gold)';
+    setTimeout(() => { btn.textContent = orig; btn.style.color = ''; btn.style.borderColor = ''; }, 2400);
   }
-  function copyAllBlurbs() { copyToClipboard(blurbs.join('\n\n'), 'Strain Blurbs'); }
-  function copyPressRelease() { copyToClipboard(press, 'Press Release'); }
-  function copyBudtenderSheet() { copyToClipboard(budtender, 'Budtender Sheet'); }
+
+  function legacyCopy(text) {
+    // Fallback for non-secure contexts and older browsers — covers file:// previews too
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:-1000px;left:-1000px;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  async function copyToClipboard(text, label, btn) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        flashButton(btn, label);
+        return;
+      }
+    } catch (e) {
+      // fall through to legacy
+    }
+    if (legacyCopy(text)) flashButton(btn, label);
+    else flashButton(btn, 'Copy failed — select manually', true);
+  }
+
+  function copyAllBlurbs(btn)     { copyToClipboard(blurbs.join('\n\n'), 'Strain Blurbs', btn); }
+  function copyPressRelease(btn)  { copyToClipboard(press, 'Press Release', btn); }
+  function copyBudtenderSheet(btn){ copyToClipboard(budtender, 'Budtender Sheet', btn); }
 </script>
 
 </body>
